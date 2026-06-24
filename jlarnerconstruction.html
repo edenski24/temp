@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J Larner Construction – Innovate. Design. Construct.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #111111;
+    --oak: #8B5E3C;
+    --oak-light: #C4894F;
+    --cream: #F7F3EE;
+    --white: #FFFFFF;
+    --grain: #2A1F14;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    background: rgba(17,17,17,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(139,94,60,0.25);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    color: var(--oak-light);
+  }
+  .nav-logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: rgba(255,255,255,0.65);
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--oak-light); }
+  .nav-cta {
+    background: var(--oak); color: var(--white);
+    border: none; padding: 0.6rem 1.4rem;
+    font-family: 'Inter', sans-serif; font-size: 0.8rem;
+    font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s; text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--oak-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 2.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(17,17,17,0.55) 0%, rgba(17,17,17,0.85) 100%),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(139,94,60,0.04) 3px,
+        rgba(139,94,60,0.04) 6px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 40px,
+        rgba(139,94,60,0.03) 40px,
+        rgba(139,94,60,0.03) 41px
+      );
+    background-color: #1a0f07;
+  }
+  /* Wood grain texture via SVG filter */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+  .hero-eyebrow {
+    position: relative;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--oak-light); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 2.5rem; height: 1px; background: var(--oak-light);
+  }
+  .hero-title {
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+  }
+  .hero-title .accent { color: var(--oak-light); }
+  .hero-sub {
+    position: relative;
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6);
+    max-width: 480px; margin-top: 1.5rem; line-height: 1.7;
+  }
+  .hero-actions {
+    position: relative;
+    margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center;
+  }
+  .btn-primary {
+    background: var(--oak); color: var(--white);
+    padding: 0.85rem 2rem; font-size: 0.85rem;
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--oak-light); }
+  .btn-ghost {
+    color: rgba(255,255,255,0.7); font-size: 0.85rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); }
+  .hero-strip {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--grain), var(--oak), var(--oak-light), var(--oak), var(--grain));
+  }
+
+  /* SERVICES */
+  .section { padding: 6rem 2.5rem; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--oak-light); margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    margin-top: 3rem;
+    border: 1px solid rgba(139,94,60,0.2);
+  }
+  .service-card {
+    padding: 2rem 1.8rem;
+    background: #181818;
+    border: 1px solid rgba(139,94,60,0.1);
+    transition: background 0.2s;
+    position: relative;
+  }
+  .service-card:hover { background: #1f1410; }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--oak-light);
+    transition: height 0.3s ease;
+  }
+  .service-card:hover::before { height: 100%; }
+  .service-icon {
+    font-size: 1.6rem; margin-bottom: 1rem;
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem; letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+  .service-desc {
+    font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6;
+  }
+
+  /* WHY US */
+  .why-section {
+    background: #0d0d0d;
+    padding: 6rem 2.5rem;
+    border-top: 1px solid rgba(139,94,60,0.15);
+    border-bottom: 1px solid rgba(139,94,60,0.15);
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .why-stats { display: flex; flex-direction: column; gap: 2rem; }
+  .stat-row { display: flex; align-items: flex-end; gap: 1rem; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; line-height: 1;
+    color: var(--oak-light);
+  }
+  .stat-label {
+    font-size: 0.85rem; color: rgba(255,255,255,0.55);
+    line-height: 1.4; padding-bottom: 0.6rem;
+    max-width: 160px;
+  }
+  .why-points { display: flex; flex-direction: column; gap: 1.5rem; }
+  .why-point {
+    padding-left: 1.2rem;
+    border-left: 2px solid rgba(139,94,60,0.4);
+  }
+  .why-point h4 {
+    font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem;
+  }
+  .why-point p {
+    font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    padding: 6rem 2.5rem;
+    max-width: 600px;
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+  .contact-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: #181818;
+    border: 1px solid rgba(139,94,60,0.15);
+  }
+  .contact-row-icon { font-size: 1.2rem; }
+  .contact-row-label {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--oak-light); margin-bottom: 0.2rem;
+  }
+  .contact-row-val {
+    font-size: 0.95rem; font-weight: 500;
+    color: var(--white); text-decoration: none;
+  }
+  .contact-row-val:hover { color: var(--oak-light); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: #181818;
+    border: 1px solid rgba(139,94,60,0.25);
+    color: var(--white);
+    padding: 0.8rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--oak-light); }
+  .form-group select option { background: #1a1a1a; }
+  .form-submit {
+    background: var(--oak); color: var(--white);
+    border: none; padding: 1rem 2rem;
+    font-family: 'Inter', sans-serif; font-size: 0.85rem;
+    font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s; width: 100%;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--oak-light); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(139,94,60,0.2);
+    padding: 2rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #0a0a0a;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.1em;
+    color: var(--oak-light);
+  }
+  .footer-tagline {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-insta {
+    color: rgba(255,255,255,0.4); font-size: 0.78rem;
+    text-decoration: none; letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .footer-insta:hover { color: var(--oak-light); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.2rem 4rem; }
+    .section { padding: 4rem 1.2rem; }
+    .why-section { padding: 4rem 1.2rem; }
+    .why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.2rem; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>J LARNER</span> CONSTRUCTION</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">Based in the UK &nbsp;·&nbsp; Trusted Tradesmen</p>
+  <h1 class="hero-title">
+    BUILD IT<br>
+    <span class="accent">RIGHT.</span><br>
+    EVERY TIME.
+  </h1>
+  <p class="hero-sub">J Larner Construction delivers honest, high-quality work across painting, building, landscaping, and more — no fuss, no shortcuts.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Get a Free Quote</a>
+    <a href="#services" class="btn-ghost">See our services ↓</a>
+  </div>
+  <div class="hero-strip"></div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <p class="section-label reveal">What we do</p>
+  <h2 class="section-title reveal">Our Services</h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-name">Indoor & Outdoor Painting</div>
+      <p class="service-desc">Clean finishes, proper prep, long-lasting results — interior or exterior.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Fencing</div>
+      <p class="service-desc">New installs, repairs, and replacements. We work with wood, panel, and post-and-rail.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Garden Services</div>
+      <p class="service-desc">Clearances, tidy-ups, landscaping, and ongoing maintenance to keep things looking sharp.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">General Repairs</div>
+      <p class="service-desc">Doors sticking? Tiles cracked? We handle the jobs that pile up before they get worse.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">General Building</div>
+      <p class="service-desc">Extensions, walls, structures — solid construction from ground up.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Flooring & Carpet</div>
+      <p class="service-desc">Supply and fit for laminate, vinyl, hardwood, and carpet across any room size.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Removals</div>
+      <p class="service-desc">House moves, furniture shifts, office clearances — handled carefully and efficiently.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Handyman Services</div>
+      <p class="service-desc">No job too small. Flatpack assembly, odd jobs, quick fixes — sorted same week.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-name">Jet Washing</div>
+      <p class="service-desc">Driveways, patios, decking, and walls — blasted clean and looking new again.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why-section" id="why">
+  <p class="section-label reveal">Why choose us</p>
+  <h2 class="section-title reveal">Built on<br>Reputation</h2>
+  <div class="why-grid">
+    <div class="why-stats">
+      <div class="stat-row reveal">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Services under one roof — no need to juggle multiple tradesmen</div>
+      </div>
+      <div class="stat-row reveal">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Available around the clock for urgent jobs and enquiries</div>
+      </div>
+      <div class="stat-row reveal">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Hidden charges — you get a straight price before we start</div>
+      </div>
+    </div>
+    <div class="why-points">
+      <div class="why-point reveal">
+        <h4>Straight talking</h4>
+        <p>We tell you exactly what the job needs, what it'll cost, and how long it'll take. No surprises.</p>
+      </div>
+      <div class="why-point reveal">
+        <h4>Fully hands-on</h4>
+        <p>Your job is done by us — not passed off to a subcontractor you've never met.</p>
+      </div>
+      <div class="why-point reveal">
+        <h4>Tidy & respectful</h4>
+        <p>We leave your home exactly as we found it — just with better walls, floors, or a tidier garden.</p>
+      </div>
+      <div class="why-point reveal">
+        <h4>Local & reliable</h4>
+        <p>We're in your area. We show up when we say we will and get the job done properly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div>
+    <p class="section-label reveal">Reach out</p>
+    <h2 class="section-title reveal">Get in Touch</h2>
+    <div class="contact-info">
+      <div class="contact-row reveal">
+        <div>
+          <div class="contact-row-label">WhatsApp / Call</div>
+          <a href="tel:07596513117" class="contact-row-val">07596 513117</a>
+        </div>
+      </div>
+      <div class="contact-row reveal">
+        <div>
+          <div class="contact-row-label">Email</div>
+          <a href="mailto:jlarnerconstruction@gmail.com" class="contact-row-val">jlarnerconstruction@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-row reveal">
+        <div>
+          <div class="contact-row-label">Instagram</div>
+          <a href="https://instagram.com/jlarnerconstruction" target="_blank" class="contact-row-val">@jlarnerconstruction</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">J Larner Construction</div>
+    <div class="footer-tagline">Innovate · Design · Construct</div>
+  </div>
+  <a href="https://instagram.com/jlarnerconstruction" target="_blank" class="footer-insta">@jlarnerconstruction</a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
